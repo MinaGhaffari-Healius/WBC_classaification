@@ -62,7 +62,7 @@ class CNN_model():
         callbacks = []
         callbacks.append(CSVLogger(logfile_name, append=True))
         callbacks.append(ModelCheckpoint(
-            'Models4/model-{epoch:03d}.h5', verbose=1, monitor='val_loss', save_best_only=True, mode='auto'))
+            'Models/model-{epoch:03d}.h5', verbose=1, monitor='val_loss', save_best_only=True, mode='auto'))
         callbacks.append(EarlyStopping(verbose=1,
                          patience=early_stopping_patience))
         model.fit(train_X, train_y, epochs=epochs, batch_size=batch_size,

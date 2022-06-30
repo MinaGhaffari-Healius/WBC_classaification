@@ -4,8 +4,6 @@
 /__pycache__
 __pycache__/
 /Models
-/datset2-master
 *.png
-*.jpeg
 *.txt
 *.csv
