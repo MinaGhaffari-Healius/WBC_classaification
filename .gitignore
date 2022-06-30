@@ -6,3 +6,5 @@ __pycache__/
 /datset2-master
 *.png
 *.jpeg
+*.txt
+*.csv
