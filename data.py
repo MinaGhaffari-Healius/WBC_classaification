@@ -6,7 +6,7 @@ from random import shuffle
 from tensorflow.keras.utils import to_categorical
 
 
-class prep_dataset ():
+class data_loader ():
     def __init__(self, img_size):
         self.img_size = img_size
 

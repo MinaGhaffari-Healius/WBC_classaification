@@ -1,11 +1,11 @@
 from configuration import config
-from data import prep_dataset
+from data import data_loader
 from model import CNN_model
 
 
 if __name__ == '__main__':
 
-    data = prep_dataset(config['CNN_input_size'], )
+    data = data_loader(config['CNN_input_size'], )
     train_X, train_y, val_X, val_y = data.convert_training_data(
         config['train_data_path'], config['validation_percentage'])
 
