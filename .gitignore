@@ -4,6 +4,6 @@
 /__pycache__
 __pycache__/
 /Models
-*.png
+*.jpeg
 # *.txt
 *.csv
