@@ -1,5 +1,6 @@
-**White blood cell classification using convolutional neural network developed**
-To train the model run train.py. The train parameters can be set in configuration.py  
+**White blood cell classification using convolutional neural network developed**  
+
+To train the model run train.py. The train parameters can be set in configuration.py
 The best models will get saved in Models directory.  
 to evaluate the model and plot the confusion matrix run evaluate.py and set the model in line load_model (line 11) to be the best saved model in Model directory.   
 
@@ -7,7 +8,7 @@ to evaluate the model and plot the confusion matrix run evaluate.py and set the 
 
 
 Dataset:
-[Kaggle WBC dataset](https://www.kaggle.com/datasets/paultimothymooney/blood-cells/code?sortBy=relevance&group=everyone&search=includeamin&page=1&pageSize=20&datasetId=9232)
+[Kaggle WBC dataset](https://www.kaggle.com/datasets/paultimothymooney/blood-cells?sortBy=relevance&group=everyone&search=includeamin&page=1&pageSize=20&datasetId=9232)
 
 
 **Requirements:**

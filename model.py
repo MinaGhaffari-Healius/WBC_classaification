@@ -1,17 +1,19 @@
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
-from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger, EarlyStopping
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+import numpy as np
+import pandas as pd
+import seaborn as sn
+import matplotlib.pyplot as plt
+from configuration import config
+from sklearn.metrics import confusion_matrix, classification_report
+
+
 import tensorflow as tf
 from tensorflow.keras.optimizers import Adam
-from configuration import config
-
-import seaborn as sn
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger, EarlyStopping
 
 
 class CNN_model():
@@ -62,21 +64,31 @@ class CNN_model():
         callbacks = []
         callbacks.append(CSVLogger(logfile_name, append=True))
         callbacks.append(ModelCheckpoint(
-            'Models/model-{epoch:03d}.h5', verbose=1, monitor='val_loss', save_best_only=True, mode='auto'))
+            'Models2/model-{epoch:03d}.h5', verbose=1, monitor='val_loss', save_best_only=True, mode='auto'))
         callbacks.append(EarlyStopping(verbose=1,
                          patience=early_stopping_patience))
-        model.fit(train_X, train_y, epochs=epochs, batch_size=batch_size,
-                  callbacks=callbacks, validation_data=[val_X, val_y])
+        history = model.fit(train_X, train_y, epochs=epochs, batch_size=batch_size,
+                            callbacks=callbacks, validation_data=[val_X, val_y])
+        plotKerasLearningCurve()
+        plt.show()
+        plot_learning_curve(history)
+        plt.show()
 
-    def evaluate_model(self, model, test_X, tesy_y):
+    def evaluate_model(self, model, test_X, tesy_y, dict_characters):
         score = model.evaluate(test_X, tesy_y, verbose=1)
         print('\nKeras CNN #1C - accuracy:', score[1], '\n')
+
+        y_pred = model.predict(test_X)
+        report = classification_report(np.where(tesy_y > 0)[1], np.argmax(
+            y_pred, axis=1), target_names=list(dict_characters.values()))
+        print('\n', report, sep='')
 
     def plot_CM(self, model, test_X, test_y):
         pred = model.predict(test_X)
         pred_classes = np.argmax(pred, axis=1)
+        gt_classes = np.argmax(test_y, axis=1)
 
-        cm = confusion_matrix(test_y, pred_classes)
+        cm = confusion_matrix(gt_classes, pred_classes)
         print(cm)
         df_cm = pd.DataFrame(cm, index=[i for i in "ELMN"],
                              columns=[i for i in "ELMN"])

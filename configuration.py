@@ -1,5 +1,7 @@
 config = dict()
 
+config['WBC_classes'] = {1: 'NEUTROPHIL',
+                         2: 'EOSINOPHIL', 3: 'MONOCYTE', 4: 'LYMPHOCYTE'}
 config['train_data_path'] = './dataset2-master/dataset2-master/images/TRAIN/'
 config['test_data_path'] = './dataset2-master/dataset2-master/images/Test/'
 config['CNN_input_size'] = (80, 60)

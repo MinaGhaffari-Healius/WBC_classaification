@@ -4,6 +4,7 @@ import glob
 import numpy as np
 from random import shuffle
 from tensorflow.keras.utils import to_categorical
+from configuration import config
 
 
 class data_loader ():
@@ -13,26 +14,27 @@ class data_loader ():
     def convert_data(self, data_path):
         X = []
         y = []
+        WBC_classes = config['WBC_classes']
         for image_file in glob.glob(os.path.join(data_path, "*", "*")):
             img = cv2.imread(image_file)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             img = cv2.resize(img, self.img_size)
             X.append(img)
             label = image_file.split('/')[-2]
-            if label == 'NEUTROPHIL':
+            if label == WBC_classes[1]:  # NEUTROPHIL
                 y.append(0)
-            elif label == 'EOSINOPHIL':
+            elif label == WBC_classes[2]:  # EOSINOPHIL
                 y.append(1)
-            elif label == 'MONOCYTE':
+            elif label == WBC_classes[3]:  # MONOCYTE
                 y.append(2)
-            elif label == 'LYMPHOCYTE':
+            elif label == WBC_classes[4]:  # LYMPHOCYTE
                 y.append(3)
         return X, y
 
     def convert_to_array(self, X, y):
         X = np.asarray(X)
         y = np.asarray(y)
-        # y = to_categorical(y)
+        y = to_categorical(y)
         return X, y
 
     def convert_training_data(self, trainig_data_path, validation_percentage):

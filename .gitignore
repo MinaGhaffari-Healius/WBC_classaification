@@ -5,5 +5,5 @@
 __pycache__/
 /Models
 *.png
-*.txt
+# *.txt
 *.csv
